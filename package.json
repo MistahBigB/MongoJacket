@@ -1,0 +1,23 @@
+{
+  "name": "MongoJacket",
+  "version": "1.0.0",
+  "description": "express backend for JacketApp",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/mistahbigb/MongoJacket"
+  },
+  "author": "Baconius Maximus",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.7",
+    "nodemon": "^2.0.4",
+    "request": "^2.88.2"
+  }
+}
