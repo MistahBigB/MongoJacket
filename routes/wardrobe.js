@@ -18,6 +18,7 @@ router.get('/wardrobe', async (req, res) => {
 
 // find one of the articles in the wardrobe
 router.get('/wardrobe', async (req, res) => {
+    console.log(req, 'request for info')
     try {
         const wardrobe = await Wardrobe.findById(req.params.id)
         res.json(wardrobe)
@@ -60,7 +61,7 @@ router.patch('/updateArticle', async (req, res) => {
         const article = await Wardrobe.updateOne(req.data.id)
         article.name = req.body.name
         const savior = await article.save()
-        res.json(wardrobe)
+        res.send(wardrobe)
     } catch (err) {
         res.send(err)
     }
@@ -86,17 +87,20 @@ router.post('/updateArticle', (req, res) => {
   })
 
 // delete the articles in the wardrobe
-router.delete('/deleteArticle', async (req, res) => {
+router.post('/deleteArticle', async (req, res) => {
+    console.log(req.body, "this is the request")
     try {
-        const wardrobe = await Wardrobe.findByIdAndDelete(req.params.id)
-        const savior = await article.save()
-        res.json(wardrobe)
+        await Wardrobe.findByIdAndDelete(req.body.id)
+        await article.save()
+        // const deleteSuccess = await Wardrobe.find()
+        // console.log(deleteSuccess, 'delete successful!')
+        // res.send(deleteSuccess)
     } catch (err) {
         res.send(err)
     }
 })
 
-// Wardrobe.create({name: 'Tanktop', type: 'Light Outerwear', rating: 'cool'}, (err, res) => res.save())
+Wardrobe.create({name: 'Tanktop', type: 'Light Outerwear', rating: 'cool'}, (err, res) => res.save())
 // Wardrobe.deleteMany({}, (err, res) => console.log(res))
 // Wardrobe.find({}, (error, res) => console.log(res, 'haaaallo'))
 // Wardrobe.save();
