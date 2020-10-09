@@ -16,9 +16,10 @@ app.use(express.json());
 
 const connectDatabase = async (databaseName = 'Jacket', hostname = 'localhost') => {
     const database = await mongoose.connect(process.env.MONGODB_URI || `mongodb://${hostname}/${databaseName}`,
-      {// useUnifiedTopology fixes things? research
+      {// research
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
         useCreateIndex: true
       }
     )
@@ -57,7 +58,7 @@ const db = connectDatabase()
 
 // app.get("/newEndpoint", (req, res) => {res.send("This is my latest endpoint!")});
 
-app.listen(port, () => console.log("listening on port " + port))
+app.listen(port, () => console.log("listening on port " + port || process.env.port))
 // app.post();
 // app.delete();
 // app.put();
