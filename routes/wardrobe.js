@@ -9,7 +9,7 @@ router.get('/wardrobe', async (req, res) => {
     console.log(res)
     try {
         const wardrobe = await Wardrobe.find()
-        console.log(wardrobe, 'allo allo')
+        console.log(wardrobe, 'show all')
         res.json(wardrobe)
     } catch (err) {
         res.send(err)
@@ -18,7 +18,7 @@ router.get('/wardrobe', async (req, res) => {
 
 // find one of the articles in the wardrobe
 router.get('/wardrobe', async (req, res) => {
-    console.log(req, 'request for info')
+    console.log(req, 'request for an article')
     try {
         const wardrobe = await Wardrobe.findById(req.params.id)
         res.json(wardrobe)
@@ -40,7 +40,7 @@ router.post('/addCategory', async (req, res) => {
 
 //adds a new article to the wardrobe
 router.post('/newArticle', async (req, res) => {
-    console.log(req)
+    console.log(req, "this is an addition request")
     const article = new Wardrobe({ 
         name: req.data.name, 
         type: req.data.type, 
@@ -56,19 +56,20 @@ router.post('/newArticle', async (req, res) => {
 });
 
 // update the articles in the wardrobe
-router.patch('/updateArticle', async (req, res) => {
-    try {
-        const article = await Wardrobe.updateOne(req.data.id)
-        article.name = req.body.name
-        const savior = await article.save()
-        res.send(wardrobe)
-    } catch (err) {
-        res.send(err)
-    }
-})
+// router.post('/updateArticle', async (req, res) => {
+//     console.log(req)
+//     try {
+//         const article = await Wardrobe.updateOne(req.data.id)
+//         article.name = req.body.name
+//         const savior = await article.save()
+//         res.send(wardrobe)
+//     } catch (err) {
+//         res.send(err)
+//     }
+// })
 
 router.post('/updateArticle', (req, res) => {
-    console.log(req.data.id)  
+    console.log(req.data.id, "this is an update request")  
     const articleUpdate = {}  
     if (req.data.name !== '') articleUpdate.name = req.data.name
     if (req.data.rating !== '') articleUpdate.rating = req.data.rating  
@@ -76,10 +77,10 @@ router.post('/updateArticle', (req, res) => {
       $set: articleUpdate
     }  
     
-    User.updateOne({ _id: req.data.id }, updates, (err, article) => {
+    Jacket.updateOne({ _id: req.data.id }, updates, (err, article) => {
       if (err) return res.status(500).send(err)
       console.log('article updated')
-      User.findOne({ _id: req.data.id }, (err, article) => {
+      Jacket.findOne({ _id: req.data.id }, (err, article) => {
         if (err) return res.status(500).send(err)
         res.send(articleUpdate)
       })
@@ -88,7 +89,7 @@ router.post('/updateArticle', (req, res) => {
 
 // delete the articles in the wardrobe
 router.post('/deleteArticle', async (req, res) => {
-    console.log(req.body, "this is the request")
+    console.log(req.body, "this is a deletion request")
     try {
         await Wardrobe.findByIdAndDelete(req.body.id)
         await article.save()
@@ -100,7 +101,8 @@ router.post('/deleteArticle', async (req, res) => {
     }
 })
 
-Wardrobe.create({name: 'Tanktop', type: 'Light Outerwear', rating: 'cool'}, (err, res) => res.save())
+// Wardrobe.create({name: 'Tanktop', type: 'Light Outerwear', rating: 'cool'}, (err, res) => res.save())
+
 // Wardrobe.deleteMany({}, (err, res) => console.log(res))
 // Wardrobe.find({}, (error, res) => console.log(res, 'haaaallo'))
 // Wardrobe.save();
