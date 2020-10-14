@@ -48,8 +48,6 @@ const db = connectDatabase()
 // });
 // db.on('error', console.error.bind(console, 'connection error:'));
 
-// GET, PUT, POST, DELETE
-
 // app.get("/", (req, res) => {res.send("Hello World!");
     // // res.send(Wardrobe.find(name) => {
     // //     return req.name === Wardrobe.name
@@ -59,6 +57,3 @@ const db = connectDatabase()
 // app.get("/newEndpoint", (req, res) => {res.send("This is my latest endpoint!")});
 
 app.listen(port, () => console.log("listening on port " + port || process.env.port))
-// app.post();
-// app.delete();
-// app.put();

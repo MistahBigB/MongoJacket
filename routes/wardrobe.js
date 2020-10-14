@@ -27,18 +27,20 @@ router.get('/wardrobe', async (req, res) => {
     }
 })
 
-// add a new category in the wardrobe
+// adds a new category in the wardrobe
 router.post('/addCategory', async (req, res) => {
+    console.log(req, 'gonna add a category')
     try {
         const wardrobe = await Wardrobe.insert(req.data.addValue)
         const savior = await req.data.addValue.save()
         res.json(wardrobe)
+        console.log(req, 'added!')
     } catch (err) {
         res.send(err)
     }
 })
 
-//adds a new article to the wardrobe
+//adds a new article to a wardrobe category
 router.post('/newArticle', async (req, res) => {
     console.log(req, "this is an addition request")
     const article = new Wardrobe({ 
@@ -48,8 +50,11 @@ router.post('/newArticle', async (req, res) => {
     })
 
     try {
-        const savior = await article.save()
-        res.json(savior)
+        Jacket.insert({ article })
+        await Wardrobe.insert(req.data.addValue)
+        await article.save()
+        // res.json(savior)
+        console.log(req, 'added!')
     } catch(err){
         res.send(err)
     }
@@ -71,6 +76,7 @@ router.post('/newArticle', async (req, res) => {
 router.post('/updateArticle', (req, res) => {
     console.log(req.data.id, "this is an update request")  
     const articleUpdate = {}  
+    // update so check will be on front end
     if (req.data.name !== '') articleUpdate.name = req.data.name
     if (req.data.rating !== '') articleUpdate.rating = req.data.rating  
     const updates = {
@@ -94,7 +100,7 @@ router.post('/deleteArticle', async (req, res) => {
         await Wardrobe.findByIdAndDelete(req.body.id)
         await article.save()
         // const deleteSuccess = await Wardrobe.find()
-        // console.log(deleteSuccess, 'delete successful!')
+        console.log('delete successful!')
         // res.send(deleteSuccess)
     } catch (err) {
         res.send(err)
