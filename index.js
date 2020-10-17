@@ -1,7 +1,7 @@
 import express from "express";
 import request from "request";
 import mongoose from "mongoose";
-import Wardrobe from "./WardrobeModel.js";
+import Wardrobe from "./models/WardrobeModel.js";
 import router from './routes/wardrobe.js';
 
 
@@ -11,7 +11,7 @@ const url = 'mongodb://localhost:27017/'
 const endpoints = router
 
 const app = express();
-const port = 5000;
+const port = 3000;
 app.use(express.json());
 
 const connectDatabase = async (databaseName = 'Jacket', hostname = 'localhost') => {

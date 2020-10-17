@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require(mongoose);
 
 const { Schema } = mongoose 
 
@@ -16,5 +16,5 @@ categorySchema.statics.submit = async function (categoryName) {
     return category
 }
 
-const Category = mongoose.model('category', categorySchema)
+const Category = mongoose.model('Category', categorySchema)
 module.exports = Category
